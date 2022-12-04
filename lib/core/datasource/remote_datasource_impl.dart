@@ -1,10 +1,10 @@
 import 'package:postgres/postgres.dart';
-import 'package:todo_app_backend/core/datasource/local_datasource.dart';
+import 'package:todo_app_backend/core/datasource/datasource.dart';
 import 'package:todo_app_backend/di.dart';
 import 'package:todo_app_backend/features/tasks/data/models/task_model.dart';
 import 'package:todo_app_backend/features/users/data/models/user_model.dart';
 
-class LocalDataSourceImpl extends LocalDataSource {
+class RemoteDataSourceImpl extends DataSource {
   final database = sl<PostgreSQLConnection>();
 
   @override
