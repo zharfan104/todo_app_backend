@@ -1,5 +1,6 @@
 import 'package:dart_frog/dart_frog.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
+import 'package:injectable/injectable.dart';
 
 abstract class JwtService {
   Future<String> generateToken(Map<String, dynamic> code);
@@ -7,6 +8,7 @@ abstract class JwtService {
   Future<int> getUserId(RequestContext context);
 }
 
+@Singleton(as: JwtService)
 class JwtServiceImpl extends JwtService {
   @override
   Future<String> generateToken(Map<String, dynamic> code) async {
