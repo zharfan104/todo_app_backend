@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
+import 'package:todo_app_backend/features/tasks/presentations/task_request.dart';
 import 'package:todos_data_source/todos_data_source.dart';
 
 FutureOr<Response> onRequest(RequestContext context) async {
@@ -20,9 +21,8 @@ FutureOr<Response> onRequest(RequestContext context) async {
 }
 
 Future<Response> _get(RequestContext context) async {
-  final dataSource = context.read<TodosDataSource>();
-  final todos = await dataSource.readAll();
-  return Response.json(body: todos);
+  final response = await TaskRequest.getAllTasks(context);
+  return response;
 }
 
 Future<Response> _post(RequestContext context) async {
