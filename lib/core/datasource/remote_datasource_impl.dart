@@ -1,9 +1,11 @@
+import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 import 'package:todo_app_backend/core/datasource/datasource.dart';
 import 'package:todo_app_backend/di.dart';
 import 'package:todo_app_backend/features/tasks/data/models/task_model.dart';
 import 'package:todo_app_backend/features/users/data/models/user_model.dart';
 
+@Singleton(as: DataSource)
 class RemoteDataSourceImpl extends DataSource {
   final database = sl<PostgreSQLConnection>();
 
