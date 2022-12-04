@@ -5,5 +5,9 @@ import 'package:todos_data_source/todos_data_source.dart';
 final _dataSource = InMemoryTodosDataSource();
 
 Handler middleware(Handler handler) {
-  return handler.use(requestLogger()).use(provider<TodosDataSource>((_) => _dataSource));
+  return handler.use(requestLogger()).use(
+        provider<TodosDataSource>(
+          (_) => _dataSource,
+        ),
+      );
 }
