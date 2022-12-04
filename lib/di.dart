@@ -5,4 +5,7 @@ import 'package:todo_app_backend/di.config.dart';
 final sl = GetIt.instance;
 
 @InjectableInit()
-void configureDependencies() => sl.init();
+Future<void> configureDependencies() async {
+  await sl.reset();
+  await sl.init();
+}
