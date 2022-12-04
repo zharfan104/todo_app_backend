@@ -8,8 +8,12 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:postgres/postgres.dart' as _i4;
-import 'package:todo_app_backend/core/config/database_config.dart' as _i5;
+import 'package:todo_app_backend/core/config/database_config.dart' as _i9;
 import 'package:todo_app_backend/core/jwt/jwt_service.dart' as _i3;
+import 'package:todo_app_backend/features/tasks/data/repositories/task_repository_impl.dart' as _i6;
+import 'package:todo_app_backend/features/tasks/domain/repositories/task_repository.dart' as _i5;
+import 'package:todo_app_backend/features/users/data/repositories/user_repository_impl.dart' as _i8;
+import 'package:todo_app_backend/features/users/domain/repositories/user_repository.dart' as _i7;
 
 /// ignore_for_file: unnecessary_lambdas
 /// ignore_for_file: lines_longer_than_80_chars
@@ -30,8 +34,10 @@ extension GetItInjectableX on _i1.GetIt {
       () => registerModule.database(),
       preResolve: true,
     );
+    gh.singleton<_i5.TaskRepository>(_i6.TaskRepositoryImpl());
+    gh.singleton<_i7.UserRepository>(_i8.UserRepositoryImpl());
     return this;
   }
 }
 
-class _$RegisterModule extends _i5.RegisterModule {}
+class _$RegisterModule extends _i9.RegisterModule {}
