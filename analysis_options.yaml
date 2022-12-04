@@ -5,3 +5,6 @@ analyzer:
 linter:
   rules:
     file_names: false
+    public_member_api_docs: false
+    one_member_abstracts: false
+    lines_longer_than_80_chars: false
