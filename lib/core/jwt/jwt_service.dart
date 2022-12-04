@@ -4,6 +4,7 @@ import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 abstract class JwtService {
   Future<String> generateToken(Map<String, dynamic> code);
   Future<bool> verifyToken(RequestContext context);
+  Future<int> getUserId(RequestContext context);
 }
 
 class JwtServiceImpl extends JwtService {
@@ -30,6 +31,15 @@ class JwtServiceImpl extends JwtService {
     } catch (e) {
       return false;
     }
+  }
+
+  @override
+  Future<int> getUserId(RequestContext context) async {
+    final headers = context.request.headers;
+    final token = await _validateHeadersAndGetToken(headers);
+    final jwt = JWT.decode(token ?? '');
+
+    return (jwt.payload as Map<String, dynamic>)['id'] as int;
   }
 
   Future<String?> _validateHeadersAndGetToken(
