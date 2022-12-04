@@ -5,13 +5,14 @@ import 'package:todo_app_backend/core/extensions/binding.dart';
 import 'package:todo_app_backend/core/helpers/content_type_helper.dart';
 import 'package:todo_app_backend/core/helpers/response_helper.dart';
 import 'package:todo_app_backend/core/jwt/jwt_service.dart';
+import 'package:todo_app_backend/di.dart';
 import 'package:todo_app_backend/features/users/domain/usecases/get_all_users.dart';
 
 class LoginRequest {
   const LoginRequest._();
 
   static Future<Response> loginUser(RequestContext context) async {
-    final middleWare = context.read<JwtService>();
+    final middleWare = sl<JwtService>();
     final randomNumber = math.Random().nextInt(999);
     final getAllUsersUsescase = GetAllUsers();
     final users = await getAllUsersUsescase();

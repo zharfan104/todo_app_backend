@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:todo_app_backend/core/helpers/response_helper.dart';
 import 'package:todo_app_backend/core/jwt/jwt_service.dart';
+import 'package:todo_app_backend/di.dart';
 import 'package:todo_app_backend/features/users/domain/usecases/get_all_users.dart';
 
 class UserRequest {
@@ -12,7 +13,7 @@ class UserRequest {
   }
 
   static Future<Response> _getAllUsers(RequestContext context) async {
-    final middleWare = context.read<JwtService>();
+    final middleWare = sl<JwtService>();
     final verifyToken = await middleWare.verifyToken(context);
     final getAllUsersUsescase = GetAllUsers();
 

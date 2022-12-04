@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:todo_app_backend/core/helpers/response_helper.dart';
 import 'package:todo_app_backend/core/jwt/jwt_service.dart';
+import 'package:todo_app_backend/di.dart';
 import 'package:todo_app_backend/features/tasks/domain/usecases/get_all_tasks.dart';
 
 class TaskRequest {
@@ -12,7 +13,7 @@ class TaskRequest {
   }
 
   static Future<Response> _getAllTasks(RequestContext context) async {
-    final middleWare = context.read<JwtService>();
+    final middleWare = sl<JwtService>();
     final verifyToken = await middleWare.verifyToken(context);
     final getAllTasksUsescase = GetAllTasks();
 
