@@ -1,13 +1,14 @@
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 import 'package:todo_app_backend/core/datasource/datasource.dart';
-import 'package:todo_app_backend/di.dart';
 import 'package:todo_app_backend/features/tasks/data/models/task_model.dart';
 import 'package:todo_app_backend/features/users/data/models/user_model.dart';
 
 @Singleton(as: DataSource)
 class RemoteDataSourceImpl extends DataSource {
-  final database = sl<PostgreSQLConnection>();
+  RemoteDataSourceImpl({required this.database});
+
+  final PostgreSQLConnection database;
 
   @override
   Future<void> addUser(UserModel user) async {
@@ -91,7 +92,7 @@ class RemoteDataSourceImpl extends DataSource {
     await database.mappedResultsQuery(
       '''
       UPDATE Public."Task"
-      SET description = '${task.description}', completed = ${task.completed}, 
+      SET description = '${task.description}', completed = ${task.completed}
       WHERE id = ${task.id};
       ''',
     );
@@ -113,5 +114,23 @@ class RemoteDataSourceImpl extends DataSource {
     );
 
     return taskModels;
+  }
+
+  @override
+  Future<TaskModel> getTask(int taskId) async {
+    final rawTasks = await database.mappedResultsQuery(
+      '''
+      select * from Public."Task"
+      where id = $taskId
+      ''',
+    );
+
+    final taskModels = List<TaskModel>.from(
+      rawTasks.map(
+        (user) => TaskModel.fromJson(user['Task']!),
+      ),
+    );
+
+    return taskModels.first;
   }
 }

@@ -10,5 +10,6 @@ abstract class DataSource {
   Future<void> addTask(int userId, TaskModel task);
   Future<void> deleteTask(int taskId);
   Future<void> updateTask(TaskModel task);
+  Future<TaskModel> getTask(int taskId);
   Future<List<TaskModel>> getAllTasks(int userId);
 }
