@@ -9,9 +9,9 @@ class TaskModel extends TaskEntity {
 
   factory TaskModel.fromJson(Map<String, dynamic> json) {
     return TaskModel(
-      id: json['id'] as int,
+      id: json['id'] as int?,
       completed: json['completed'] as bool,
-      description: json['description'].toString(),
+      description: json['description'] as String,
     );
   }
 

@@ -7,7 +7,7 @@ class TaskEntity extends Equatable {
     required this.description,
   });
 
-  final int id;
+  final int? id;
   final bool completed;
   final String description;
 
