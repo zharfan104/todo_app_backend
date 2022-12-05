@@ -5,6 +5,15 @@ import 'package:dart_frog/dart_frog.dart';
 class ResponseHelper {
   const ResponseHelper._();
 
+  static Future<Response> successEmpty({
+    required String message,
+  }) =>
+      ResponseHelper.json(
+        status: HttpStatus.ok,
+        message: message,
+        body: const <String, dynamic>{},
+      );
+
   static Future<Response> json({
     required int status,
     required String message,
