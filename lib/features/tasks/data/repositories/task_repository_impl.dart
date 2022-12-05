@@ -9,6 +9,15 @@ class TaskRepositoryImpl extends TaskRepository {
   final DataSource localDataSource = sl();
 
   @override
+  Future<void> addTask(int userId, TaskModel task) => localDataSource.addTask(userId, task);
+
+  @override
+  Future<void> deleteTask(int taskId) => localDataSource.deleteTask(taskId);
+
+  @override
+  Future<void> updateTask(TaskModel task) => localDataSource.updateTask(task);
+
+  @override
   Future<List<TaskModel>> getAllTasks(int userId) async {
     final tasks = await localDataSource.getAllTasks(userId);
 
