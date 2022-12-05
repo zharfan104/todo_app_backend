@@ -9,6 +9,15 @@ class UserRepositoryImpl extends UserRepository {
   final DataSource localDataSource = sl();
 
   @override
+  Future<void> addUser(UserModel user) => localDataSource.addUser(user);
+
+  @override
+  Future<UserModel> getUser(int userId) => localDataSource.getUser(userId);
+
+  @override
+  Future<void> updateUser(UserModel user) => localDataSource.updateUser(user);
+
+  @override
   Future<List<UserModel>> getAllUsers() async {
     final users = await localDataSource.getAllUsers();
     return users;
