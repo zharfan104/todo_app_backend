@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
 import 'package:todo_app_backend/features/tasks/presentations/task_request.dart';
-import 'package:todos_data_source/todos_data_source.dart';
 
 FutureOr<Response> onRequest(RequestContext context) async {
   switch (context.request.method) {
@@ -20,19 +19,10 @@ FutureOr<Response> onRequest(RequestContext context) async {
   }
 }
 
-Future<Response> _get(RequestContext context) async {
-  final response = await TaskRequest.getAllTasks(context);
-  return response;
+Future<Response> _get(RequestContext context) {
+  return TaskRequest.getAllTasks(context);
 }
 
-Future<Response> _post(RequestContext context) async {
-  final dataSource = context.read<TodosDataSource>();
-  final todo = Todo.fromJson(
-    await context.request.json() as Map<String, dynamic>,
-  );
-
-  return Response.json(
-    statusCode: HttpStatus.created,
-    body: await dataSource.create(todo),
-  );
+Future<Response> _post(RequestContext context) {
+  return TaskRequest.addTask(context);
 }

@@ -2,23 +2,18 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
-import 'package:todos_data_source/todos_data_source.dart';
+import 'package:todo_app_backend/features/tasks/presentations/task_request.dart';
 
 FutureOr<Response> onRequest(RequestContext context, String id) async {
-  final dataSource = context.read<TodosDataSource>();
-  final todo = await dataSource.read(id);
-
-  if (todo == null) {
-    return Response(statusCode: HttpStatus.notFound, body: 'Not found');
-  }
+  final idInInteger = int.parse(id);
 
   switch (context.request.method) {
     case HttpMethod.get:
-      return _get(context, todo);
+      return _get(context, idInInteger);
     case HttpMethod.put:
-      return _put(context, id, todo);
+      return _put(context, idInInteger);
     case HttpMethod.delete:
-      return _delete(context, id);
+      return _delete(context, idInInteger);
     case HttpMethod.head:
     case HttpMethod.options:
     case HttpMethod.patch:
@@ -27,29 +22,14 @@ FutureOr<Response> onRequest(RequestContext context, String id) async {
   }
 }
 
-Future<Response> _get(RequestContext context, Todo todo) async {
-  return Response.json(body: todo);
+Future<Response> _get(RequestContext context, int taskId) {
+  return TaskRequest.getTask(context, taskId);
 }
 
-Future<Response> _put(RequestContext context, String id, Todo todo) async {
-  final dataSource = context.read<TodosDataSource>();
-  final updatedTodo = Todo.fromJson(
-    await context.request.json() as Map<String, dynamic>,
-  );
-  final newTodo = await dataSource.update(
-    id,
-    todo.copyWith(
-      title: updatedTodo.title,
-      description: updatedTodo.description,
-      isCompleted: updatedTodo.isCompleted,
-    ),
-  );
-
-  return Response.json(body: newTodo);
+Future<Response> _put(RequestContext context, int taskId) {
+  return TaskRequest.updateTask(context, taskId);
 }
 
-Future<Response> _delete(RequestContext context, String id) async {
-  final dataSource = context.read<TodosDataSource>();
-  await dataSource.delete(id);
-  return Response(statusCode: HttpStatus.noContent);
+Future<Response> _delete(RequestContext context, int taskId) {
+  return TaskRequest.deleteTask(context, taskId);
 }
