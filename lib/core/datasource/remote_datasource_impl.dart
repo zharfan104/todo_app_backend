@@ -14,8 +14,8 @@ class RemoteDataSourceImpl extends DataSource {
   Future<void> addUser(UserModel user) async {
     await database.mappedResultsQuery(
       '''
-      INSERT INTO public."User"(name, user_name, password, age)
-      VALUES ('${user.name}', '${user.userName}', '${user.password}', ${user.age});
+      INSERT INTO public."User"(name, email, password, age)
+      VALUES ('${user.name}', '${user.email}', '${user.password}', ${user.age});
       ''',
     );
   }
@@ -27,8 +27,8 @@ class RemoteDataSourceImpl extends DataSource {
       UPDATE Public."User"
       SET name = '${user.name}',
       age = ${user.age}, 
-      user_name = '${user.userName}', 
-      password = '${user.password}',
+      email = '${user.email}', 
+      password = '${user.password}'
       WHERE id = ${user.id};
       ''',
     );
@@ -89,10 +89,13 @@ class RemoteDataSourceImpl extends DataSource {
 
   @override
   Future<void> updateTask(TaskModel task) async {
+    final setDescriptionQuery = task.description != null ? 'description = ${task.description},' : '';
+
     await database.mappedResultsQuery(
       '''
       UPDATE Public."Task"
-      SET description = '${task.description}', completed = ${task.completed}
+      SET $setDescriptionQuery
+      completed = ${task.completed}
       WHERE id = ${task.id};
       ''',
     );
