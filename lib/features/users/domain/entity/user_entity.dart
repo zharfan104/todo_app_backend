@@ -5,16 +5,16 @@ class UserEntity extends Equatable {
     required this.id,
     required this.name,
     required this.age,
-    required this.userName,
+    required this.email,
     required this.password,
   });
 
-  final int id;
+  final int? id;
   final String name;
   final int age;
-  final String userName;
+  final String email;
   final String password;
 
   @override
-  List<Object?> get props => [id, name, age, userName, password];
+  List<Object?> get props => [id, name, age, email, password];
 }

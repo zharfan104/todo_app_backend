@@ -5,17 +5,17 @@ class UserModel extends UserEntity {
     required super.id,
     required super.name,
     required super.age,
-    required super.userName,
+    required super.email,
     required super.password,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json['id'] as int,
-      name: json['name'].toString(),
+      id: json['id'] as int?,
+      name: json['name'] as String,
       age: json['age'] as int,
-      userName: json['user_name'].toString(),
-      password: json['password'].toString(),
+      email: json['email'] as String,
+      password: json['password'] as String,
     );
   }
 
@@ -23,8 +23,8 @@ class UserModel extends UserEntity {
     return {
       'id': id,
       'name': name,
+      'email': email,
       'age': age,
-      'user_name': userName,
       'password': password,
     };
   }
