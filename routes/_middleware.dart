@@ -6,7 +6,7 @@ import 'package:todo_app_backend/di.dart';
 import 'package:todos_data_source/todos_data_source.dart';
 
 final _dataSource = InMemoryTodosDataSource();
-const _authenticationUrl = ['login', 'register'];
+const _authenticationUrl = ['user/login', 'user/register'];
 
 Handler middleware(Handler handler) {
   return handler
@@ -31,7 +31,15 @@ Handler _verifyTokenHandler(Handler handler) {
       }
     }
 
-    final response = await handler(context);
+    Response response;
+
+    try {
+      response = await handler(context);
+    } catch (error) {
+      return ResponseHelper.badRequest(
+        message: 'Bad Request ($error)',
+      );
+    }
 
     return response;
   };
