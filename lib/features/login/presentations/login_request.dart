@@ -8,6 +8,8 @@ import 'package:todo_app_backend/core/jwt/jwt_service.dart';
 import 'package:todo_app_backend/di.dart';
 import 'package:todo_app_backend/features/users/domain/usecases/get_all_users.dart';
 
+// TODO: This is not following a good presentation layer because we have a lot of logic here.
+// We need to refactor this
 class LoginRequest {
   const LoginRequest._();
 
