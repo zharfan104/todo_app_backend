@@ -90,20 +90,15 @@ class TaskRequest {
 
   static Future<Response> _getAllTasks(RequestContext context) async {
     final middleWare = sl<JwtService>();
-    final verifyToken = await middleWare.verifyToken(context);
     final getAllTasksUsescase = GetAllTasks();
 
-    if (!verifyToken) {
-      return ResponseHelper.unAuthorized();
-    } else {
-      final userId = await middleWare.getUserId(context);
-      final tasks = await getAllTasksUsescase(userId);
+    final userId = await middleWare.getUserId(context);
+    final tasks = await getAllTasksUsescase(userId);
 
-      return ResponseHelper.json(
-        status: HttpStatus.ok,
-        message: 'Successfully get all Tasks',
-        body: tasks,
-      );
-    }
+    return ResponseHelper.json(
+      status: HttpStatus.ok,
+      message: 'Successfully get all Tasks',
+      body: tasks,
+    );
   }
 }
