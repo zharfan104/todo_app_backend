@@ -9,6 +9,16 @@ class UserEntity extends Equatable {
     required this.password,
   });
 
+  factory UserEntity.fromJson(Map<String, dynamic> json) {
+    return UserEntity(
+      id: json['id'] as int?,
+      name: json['name'] as String,
+      age: json['age'] as int,
+      email: json['email'] as String,
+      password: json['password'] as String,
+    );
+  }
+
   final int? id;
   final String name;
   final int age;

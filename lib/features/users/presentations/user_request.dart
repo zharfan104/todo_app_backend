@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:todo_app_backend/core/helpers/response_helper.dart';
-import 'package:todo_app_backend/features/users/data/models/user_model.dart';
+import 'package:todo_app_backend/features/users/domain/entity/user_entity.dart';
 import 'package:todo_app_backend/features/users/domain/usecases/add_user.dart';
 import 'package:todo_app_backend/features/users/domain/usecases/get_all_users.dart';
 import 'package:todo_app_backend/features/users/domain/usecases/get_user.dart';
@@ -19,7 +19,7 @@ class UserRequest {
 
     userJson['id'] = userId;
 
-    final user = UserModel.fromJson(userJson);
+    final user = UserEntity.fromJson(userJson);
     final updateUserUsescase = UpdateUser();
 
     await updateUserUsescase(user);
@@ -47,13 +47,13 @@ class UserRequest {
     );
   }
 
-  static Future<UserModel> addUser(RequestContext context) async {
+  static Future<UserEntity> addUser(RequestContext context) async {
     return _addUser(context);
   }
 
-  static Future<UserModel> _addUser(RequestContext context) async {
+  static Future<UserEntity> _addUser(RequestContext context) async {
     final userJson = await context.request.json() as Map<String, dynamic>;
-    final user = UserModel.fromJson(userJson);
+    final user = UserEntity.fromJson(userJson);
     final addUserUsescase = AddUser();
 
     await addUserUsescase(user);
@@ -69,6 +69,7 @@ class UserRequest {
     final getAllUsersUsescase = GetAllUsers();
 
     final users = await getAllUsersUsescase();
+
     return ResponseHelper.json(
       status: HttpStatus.ok,
       message: 'Successfully get all users',

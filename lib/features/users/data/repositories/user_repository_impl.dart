@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:todo_app_backend/core/datasource/datasource.dart';
 import 'package:todo_app_backend/features/users/data/models/user_model.dart';
+import 'package:todo_app_backend/features/users/domain/entity/user_entity.dart';
 import 'package:todo_app_backend/features/users/domain/repositories/user_repository.dart';
 
 @Singleton(as: UserRepository)
@@ -10,16 +11,32 @@ class UserRepositoryImpl extends UserRepository {
   final DataSource dataSource;
 
   @override
-  Future<void> addUser(UserModel user) => dataSource.addUser(user);
+  Future<void> addUser(UserEntity user) => dataSource.addUser(
+        UserModel(
+          age: user.age,
+          email: user.email,
+          id: user.id,
+          name: user.name,
+          password: user.password,
+        ),
+      );
 
   @override
-  Future<UserModel> getUser(int userId) => dataSource.getUser(userId);
+  Future<UserEntity> getUser(int userId) => dataSource.getUser(userId);
 
   @override
-  Future<void> updateUser(UserModel user) => dataSource.updateUser(user);
+  Future<void> updateUser(UserEntity user) => dataSource.updateUser(
+        UserModel(
+          age: user.age,
+          email: user.email,
+          id: user.id,
+          name: user.name,
+          password: user.password,
+        ),
+      );
 
   @override
-  Future<List<UserModel>> getAllUsers() {
+  Future<List<UserEntity>> getAllUsers() {
     return dataSource.getAllUsers();
   }
 }

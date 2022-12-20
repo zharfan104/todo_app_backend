@@ -1,8 +1,8 @@
-import 'package:todo_app_backend/features/users/data/models/user_model.dart';
+import 'package:todo_app_backend/features/users/domain/entity/user_entity.dart';
 
 abstract class UserRepository {
-  Future<void> addUser(UserModel user);
-  Future<void> updateUser(UserModel user);
-  Future<UserModel> getUser(int userId);
-  Future<List<UserModel>> getAllUsers();
+  Future<void> addUser(UserEntity user);
+  Future<void> updateUser(UserEntity user);
+  Future<UserEntity> getUser(int userId);
+  Future<List<UserEntity>> getAllUsers();
 }
