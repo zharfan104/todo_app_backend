@@ -4,7 +4,7 @@ import 'package:dart_frog/dart_frog.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-import '../../routes/task/index.dart' as task_with_index_route;
+import '../../routes/task/index.dart' as task_route;
 
 class _MockRequestContext extends Mock implements RequestContext {}
 
@@ -17,7 +17,7 @@ void main() {
 
       when(() => context.request).thenReturn(Request.put(_mockUri));
 
-      final response = await task_with_index_route.onRequest(context);
+      final response = await task_route.onRequest(context);
       expect(response.statusCode, equals(HttpStatus.methodNotAllowed));
     });
   });
