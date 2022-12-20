@@ -1,9 +1,9 @@
-import 'package:todo_app_backend/features/tasks/data/models/task_model.dart';
+import 'package:todo_app_backend/features/tasks/domain/entity/task_entity.dart';
 
 abstract class TaskRepository {
-  Future<void> addTask(int userId, TaskModel task);
+  Future<void> addTask(int userId, TaskEntity task);
   Future<void> deleteTask(int taskId);
-  Future<void> updateTask(TaskModel task);
-  Future<TaskModel> getTask(int taskId);
-  Future<List<TaskModel>> getAllTasks(int userId);
+  Future<void> updateTask(TaskEntity task);
+  Future<TaskEntity> getTask(int taskId);
+  Future<List<TaskEntity>> getAllTasks(int userId);
 }

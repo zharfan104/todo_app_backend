@@ -80,7 +80,11 @@ class TaskRequest {
     return ResponseHelper.json(
       status: HttpStatus.ok,
       message: 'Successfully get task',
-      body: task.toJson(),
+      body: {
+        'id': task.id,
+        'completed': task.completed,
+        'description': task.description,
+      },
     );
   }
 
